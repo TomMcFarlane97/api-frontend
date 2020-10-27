@@ -44,7 +44,6 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "webpack-dev-server": "webpack-dev-server",
     "dev": "webpack serve --mode=development --watch",
     "prod": "webpack --mode=production"
   },
