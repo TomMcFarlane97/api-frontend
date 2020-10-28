@@ -15,6 +15,10 @@ Frontend UI component used to consume the api-backend. UI is React JS / Typescri
 
 In the project directory, you can run:
 
+### `yarn install`
+
+This installs third party packages in the `node_modules` directory 
+
 ### `yarn dev`
 
 Runs the app in the development mode with [webpack](https://webpack.js.org/guides/development/).\
