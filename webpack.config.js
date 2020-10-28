@@ -1,12 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const sass = require('sass');
 
 module.exports = {
   mode: 'development',
-  target: "web",
+  target: 'web',
   entry: {
-    app: './src/js/index.tsx'
+    app: './src/js/index.tsx',
   },
   output: {
     filename: './js/index.js',
@@ -26,7 +27,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
-      template: path.resolve( __dirname, 'public/index.html' ),
+      template: path.resolve(__dirname, 'public/index.html'),
       filename: 'index.html',
     }),
   ],
@@ -45,14 +46,14 @@ module.exports = {
           {
             loader: 'sass-loader',
             options: {
-              implementation: require('sass'),
+              implementation: sass,
               sassOptions: {
                 fiber: false,
               },
             },
           },
         ],
-      }
+      },
     ],
   },
   watch: true,
