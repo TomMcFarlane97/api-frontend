@@ -1,5 +1,5 @@
 import { User, UserState } from '../../Interfaces/Redux';
-import { GET_USER } from "./Types/UserActionTypes";
+import { CREATE_USER, GET_USER } from './Types/UserActionTypes';
 
 export default class UserActions
 {
@@ -12,6 +12,13 @@ export default class UserActions
                 lastName: 'McFarlane',
                 emailAddress: 'tom.mcfarlane97@gmail.com',
             } as User,
+        }
+    }
+
+    public static createUser(user: User): UserState {
+        return {
+            type: CREATE_USER,
+            data: user,
         }
     }
 }

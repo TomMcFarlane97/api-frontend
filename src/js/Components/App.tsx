@@ -1,15 +1,16 @@
-import React, { ReactNode } from 'react';
+import React, {Dispatch, ReactNode} from 'react';
 import '../../scss/App.scss';
-import { connect } from 'react-redux';
+import {connect, RootStateOrAny} from 'react-redux';
 import { AppPropsInterface } from './AppPropsInterface';
 import UserActions from '../Redux/Actions/UserActions';
 import { AppStateInterface } from './AppStateInterface';
+import {User} from "../Interfaces/Redux";
 
 class App extends React.Component<AppPropsInterface, AppStateInterface> {
   constructor(props: AppPropsInterface) {
     super(props);
 
-    this.state = { user: props.user };
+    this.state = {};
   }
 
   componentDidMount(): void {
@@ -24,34 +25,42 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
   }
 
   render(): ReactNode {
-    const { firstName, lastName, emailAddress } = this.props.user;
+    const { user } = this.state;
     return (
       <div className="App">
         <header className="App-header">
           <p>
-            Hello {firstName} {lastName}. This is your Email Address {emailAddress}
+            Hello {user?.firstName} {user?.lastName}. This is your Email Address {user?.emailAddress}
           </p>
-          <a
+          <button
             className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+            onClick={() => this.props.createUser(
+                {
+                  id: 3,
+                  firstName: 'Updated',
+                  lastName: 'User',
+                  emailAddress: 'updated.user@gmail.com',
+                } as User
+            )}
           >
-            Learn React
-          </a>
+            Create a new user
+          </button>
         </header>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state: any, ownProps: any) => ({
-  user: state.user,
-})
+const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
+  return {
+    user: state.user,
+  }
+};
 
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch<any>) {
   return  {
-    getUser: (userId: number) => dispatch(UserActions.getUser(userId))
+    getUser: (userId: number) => dispatch(UserActions.getUser(userId)),
+    createUser: (user: User) => dispatch(UserActions.createUser(user)),
   }
 
 }

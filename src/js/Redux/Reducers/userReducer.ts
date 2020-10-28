@@ -22,7 +22,6 @@ export default (state: User = initialState, action: UserState) => {
       };
     }
     case GET_USER: {
-      console.log('got user in reducer');
       const { id, firstName, lastName, emailAddress } = action.data;
       return {
         ...state,
