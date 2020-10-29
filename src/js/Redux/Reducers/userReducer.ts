@@ -8,13 +8,11 @@ const initialState: User = {
   emailAddress: '',
 };
 
-export default (state: User = initialState, action: UserState) => {
+export default (state: User = initialState, action: UserState): User => {
   switch (action.type) {
     case CREATE_USER: {
-      console.log('create user in reducer');
       const { id, firstName, lastName, emailAddress } = action.data;
       return {
-        ...state,
         id,
         firstName,
         lastName,
@@ -24,7 +22,6 @@ export default (state: User = initialState, action: UserState) => {
     case GET_USER: {
       const { id, firstName, lastName, emailAddress } = action.data;
       return {
-        ...state,
         id,
         firstName,
         lastName,

@@ -1,7 +1,8 @@
-import { User } from '../Interfaces/Redux';
+import { User, UserState } from '../Interfaces/Redux';
+import { Dispatch } from 'react';
 
 export interface AppPropsInterface {
     user: User,
-    getUser(userId: number): void;
-    createUser(user: User): void;
+    getUserAction(userId: number): void;
+    createUserAction(user: User): void;
 }

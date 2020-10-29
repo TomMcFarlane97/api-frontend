@@ -3,29 +3,18 @@ import { CONTENT_TYPE_JSON } from '../Constants/AxiosConstants';
 
 export abstract class AbstractService
 {
-    private readonly httpResponse: AxiosStatic;
+    protected readonly http: AxiosStatic;
 
     constructor() {
-        this.httpResponse = this.setHttpResponse();
+        this.http = this.setHttp();
     }
 
-    protected get httpRequest() {
-        return this.httpResponse;
-    }
-
-    // protected getHttpResponse() {
-    //     if (this.httpResponse !== null) {
-    //         return this.httpRequest;
-    //     }
-    //     // axios.
-    // }
-
-    private setHttpResponse(): AxiosStatic {
+    private setHttp(): AxiosStatic {
         axios.interceptors.request.use((config: AxiosRequestConfig) => {
             return {
                 ...config,
                 headers: {
-                    // 'Content-Type': CONTENT_TYPE_JSON,
+                    'Content-Type': CONTENT_TYPE_JSON,
                     'Accept': CONTENT_TYPE_JSON,
                 },
                 baseURL: 'http://localhost:8080/'

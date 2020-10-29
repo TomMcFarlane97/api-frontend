@@ -2,7 +2,7 @@ import React, {Dispatch, ReactNode} from 'react';
 import '../../scss/App.scss';
 import {connect, RootStateOrAny} from 'react-redux';
 import { AppPropsInterface } from './AppPropsInterface';
-import UserActions from '../Redux/Actions/UserActions';
+import {createUser, getUser} from '../Redux/Actions/UserActions';
 import { AppStateInterface } from './AppStateInterface';
 import {User} from "../Interfaces/Redux";
 
@@ -14,8 +14,8 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
   }
 
   componentDidMount(): void {
-    const { getUser } = this.props;
-    getUser(1);
+    const { getUserAction } = this.props;
+    getUserAction(1);
   }
 
   static getDerivedStateFromProps(nextProps: AppPropsInterface, prevState: AppStateInterface): AppStateInterface {
@@ -34,9 +34,8 @@ class App extends React.Component<AppPropsInterface, AppStateInterface> {
           </p>
           <button
             className="App-link"
-            onClick={() => this.props.createUser(
+            onClick={() => this.props.createUserAction(
                 {
-                  id: 3,
                   firstName: 'Updated',
                   lastName: 'User',
                   emailAddress: 'updated.user@gmail.com',
@@ -59,10 +58,9 @@ const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
 
 function mapDispatchToProps(dispatch: Dispatch<any>) {
   return  {
-    getUser: (userId: number) => dispatch(UserActions.getUser(userId)),
-    createUser: (user: User) => dispatch(UserActions.createUser(user)),
+    getUserAction: (userId: number) => dispatch(getUser(userId)),
+    createUserAction: (user: User) => dispatch(createUser(user)),
   }
-
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
