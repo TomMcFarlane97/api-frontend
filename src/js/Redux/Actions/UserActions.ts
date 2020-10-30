@@ -19,12 +19,9 @@ export function getUser(userId: number): (dispatch: Dispatch<any>) => void {
 }
 
 export function createUser(user: User): (dispatch: Dispatch<any>) => void {
-    console.log('dispatching createUser');
     return function (dispatch: Dispatch<any>): void {
-        console.log('dispatching create action');
         userService.createUser(user)
             .then((response: User) => {
-                console.log(response);
                 dispatch({
                     type: CREATE_USER,
                     data: response,
