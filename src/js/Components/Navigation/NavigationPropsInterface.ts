@@ -1,5 +1,5 @@
-import {User} from "../../Interfaces/Redux";
+import {UserState} from "../../Interfaces/Redux";
 
 export interface NavigationPropsInterface {
-    user?: User;
+    userState: UserState;
 }

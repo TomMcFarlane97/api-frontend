@@ -18,7 +18,6 @@ export default class UserForm extends React.Component<UserFormPropsInterface, Us
         if (prevState.user?.id) {
             return { ...prevState };
         }
-        console.log('static - ' + nextProps.user?.firstName);
         return {
             ...prevState,
             user: nextProps.user,
@@ -39,13 +38,11 @@ export default class UserForm extends React.Component<UserFormPropsInterface, Us
     handleSubmit(event: FormEvent): void {
         event.preventDefault();
         const { user } = this.state;
-        console.log(user?.firstName);
         this.props.submitUserData(user);
     }
 
     render(): ReactNode {
         const { user } = this.state;
-        console.log(user?.firstName);
         return (
             <Form onSubmit={(event: FormEvent) => this.handleSubmit(event)} className="p-4">
                 <Form.Group controlId="userForm" as={Row} >

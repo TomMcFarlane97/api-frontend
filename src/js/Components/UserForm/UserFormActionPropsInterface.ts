@@ -1,7 +1,7 @@
-import { User } from '../../Interfaces/Redux';
+import {User, UserState} from '../../Interfaces/Redux';
 
 export interface UserFormActionPropsInterface {
-    user?: User,
+    userState: UserState,
     createUserAction(user: User): void;
     updateUserAction(user: User): void;
 }

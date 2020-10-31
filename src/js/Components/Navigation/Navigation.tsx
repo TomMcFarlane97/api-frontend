@@ -1,23 +1,25 @@
 import React, {ReactNode} from "react";
-import {Col, Nav, Navbar, NavDropdown} from "react-bootstrap";
-import {NavigationPropsInterface} from "./NavigationPropsInterface";
-import {NavigationStateInterface} from "./NavigationStateInterface";
+import {Nav, Navbar, NavDropdown} from "react-bootstrap";
+import {NavigationPropsInterface, NavigationStateInterface} from ".";
 import {connect} from "react-redux";
-import {User} from "../../Interfaces/Redux";
+import {USER_SUCCESS} from "../../Redux/Actions/Types/UserActionTypes";
 
 class Navigation extends React.Component<NavigationPropsInterface, NavigationStateInterface>
 {
     constructor(props: NavigationPropsInterface) {
         super(props);
-        this.state = { user: props.user };
+        this.state = { user: props.userState.user };
     }
 
     static getDerivedStateFromProps(
         nextProps: NavigationPropsInterface,
         prevState: NavigationStateInterface
     ): NavigationStateInterface {
+        if (nextProps.userState.type !== USER_SUCCESS) {
+            return { ...prevState };
+        }
         return {
-            user: nextProps.user,
+            user: nextProps.userState.user,
         }
     }
 
@@ -42,7 +44,7 @@ class Navigation extends React.Component<NavigationPropsInterface, NavigationSta
 }
 
 const mapStateToProps = ((state: any) => ({
-    user: state.user,
+    userState: state.userState,
 }));
 
 // @ts-ignore

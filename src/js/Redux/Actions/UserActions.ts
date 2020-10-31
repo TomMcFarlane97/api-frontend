@@ -12,7 +12,7 @@ export function getUser(userId: number): (dispatch: Dispatch<any>) => void {
             .then((response: User) => {
                 dispatch({
                     type: USER_SUCCESS,
-                    data: response,
+                    user: response,
                 } as UserState)
             });
     }
@@ -24,7 +24,7 @@ export function createUser(user: User): (dispatch: Dispatch<any>) => void {
             .then((response: User) => {
                 dispatch({
                     type: USER_SUCCESS,
-                    data: response,
+                    user: response,
                 } as UserState)
             });
     }
@@ -36,7 +36,7 @@ export function updateUser(user: User): (dispatch: Dispatch<any>) => void {
             .then((response: User) => {
                 dispatch({
                     type: USER_SUCCESS,
-                    data: response,
+                    user: response,
                 } as UserState)
             });
     }

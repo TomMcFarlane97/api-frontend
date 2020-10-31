@@ -1,28 +1,29 @@
 import { User, UserState } from '../../Interfaces/Redux';
-import {USER_FAILURE, USER_SUCCESS} from '../Actions/Types/UserActionTypes';
+import {USER_FAILURE, USER_SUCCESS, USER_DEFAULT} from '../Actions/Types/UserActionTypes';
 
-const initialState: User = {
-  id: undefined,
-  firstName: '',
-  lastName: '',
-  emailAddress: '',
+const initialState: UserState = {
+  type: USER_DEFAULT,
+  user: {
+    id: undefined,
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+  },
 };
 
-export default (state: User = initialState, action: UserState): User => {
+export default (state: UserState = initialState, action: UserState): UserState => {
   switch (action.type) {
     case USER_SUCCESS: {
-      const { id, firstName, lastName, emailAddress } = action.data;
+      const { id, firstName, lastName, emailAddress } = action.user;
       return {
-        id,
-        firstName,
-        lastName,
-        emailAddress,
+        type: USER_SUCCESS,
+        user: action.user,
       };
     }
     case USER_FAILURE: {
-      const { id, firstName, lastName, emailAddress } = action.data;
       return {
         ...state,
+        type: USER_FAILURE,
       };
     }
     default:

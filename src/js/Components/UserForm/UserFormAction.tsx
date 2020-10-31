@@ -4,22 +4,26 @@ import UserForm from "./UserForm";
 import {User} from "../../Interfaces/Redux";
 import {connect, RootStateOrAny} from "react-redux";
 import {createUser, updateUser} from "../../Redux/Actions/UserActions";
+import {USER_SUCCESS} from "../../Redux/Actions/Types/UserActionTypes";
 
 class UserFormAction extends React.Component<UserFormActionPropsInterface, UserFormActionStateInterface> {
     constructor(props: UserFormActionPropsInterface) {
         super(props);
 
         this.submitUserData = this.submitUserData.bind(this);
-        this.state = { user: props.user };
+        this.state = { user: props.userState.user };
     }
 
     static getDerivedStateFromProps(
         nextProps: UserFormActionPropsInterface,
         prevState: UserFormActionStateInterface
     ): UserFormActionStateInterface {
+        if (nextProps.userState.type !== USER_SUCCESS) {
+            return { ...prevState };
+        }
         return {
             ...prevState,
-            user: nextProps.user,
+            user: nextProps.userState.user,
         }
     }
 
@@ -28,7 +32,6 @@ class UserFormAction extends React.Component<UserFormActionPropsInterface, UserF
             return;
         }
         if (user?.id) {
-            console.log(user.firstName);
             this.props.updateUserAction(user);
             return;
         }
@@ -45,7 +48,7 @@ class UserFormAction extends React.Component<UserFormActionPropsInterface, UserF
 
 const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
     return {
-        user: state.user,
+        userState: state.userState,
     }
 };
 

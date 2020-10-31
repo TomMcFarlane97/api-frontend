@@ -4,11 +4,12 @@ import {createUser, getUser} from '../../../Redux/Actions/UserActions';
 import { HomepageStateInterface, HomepagePropsInterface } from '.';
 import {User} from "../../../Interfaces/Redux";
 import UserFormAction from "../../UserForm/UserFormAction";
+import {USER_SUCCESS} from "../../../Redux/Actions/Types/UserActionTypes";
 
 class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInterface> {
     constructor(props: HomepagePropsInterface) {
         super(props);
-        this.state = {};
+        this.state = { user: props.userState.user };
     }
 
     componentDidMount(): void {
@@ -16,9 +17,16 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
         getUserAction(1);
     }
 
-    static getDerivedStateFromProps(nextProps: HomepagePropsInterface, prevState: HomepageStateInterface): HomepageStateInterface {
+    static getDerivedStateFromProps(
+        nextProps: HomepagePropsInterface,
+        prevState: HomepageStateInterface
+    ): HomepageStateInterface {
+        if (nextProps.userState.type !== USER_SUCCESS) {
+            return { ...prevState };
+        }
+
         return {
-            user: nextProps.user
+            user: nextProps.userState
         }
     }
 
@@ -52,7 +60,7 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
 
 const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
     return {
-        user: state.user,
+        userState: state.userState,
     }
 };
 

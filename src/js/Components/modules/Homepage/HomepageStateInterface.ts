@@ -1,5 +1,5 @@
-import { User } from '../../../Interfaces/Redux';
+import {User} from '../../../Interfaces/Redux';
 
 export interface HomepageStateInterface {
-    user?: User,
+    user: User,
 }
