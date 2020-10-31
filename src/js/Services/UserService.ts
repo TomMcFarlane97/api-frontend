@@ -37,4 +37,24 @@ export class UserService extends AbstractService implements UserServiceInterface
                 } as User;
             });
     }
+
+    public async updateUser(user: User): Promise<User> {
+        const { firstName, lastName, emailAddress } = user;
+        return await this.http.patch(
+            `/user/${user.id}`,
+            {
+                    first_name: firstName,
+                    last_name: lastName,
+                    email_address: emailAddress,
+                 }
+            )
+            .then((response: AxiosResponse<UserResponse>) => {
+                return {
+                    id: response.data.id,
+                    firstName: response.data.first_name,
+                    lastName: response.data.last_name,
+                    emailAddress: response.data.email_address,
+                } as User;
+            });
+    }
 }

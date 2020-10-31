@@ -1,5 +1,5 @@
 import React, {ReactNode} from "react";
-import {Col, Navbar} from "react-bootstrap";
+import {Col, Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {NavigationPropsInterface} from "./NavigationPropsInterface";
 import {NavigationStateInterface} from "./NavigationStateInterface";
 import {connect} from "react-redux";
@@ -16,7 +16,6 @@ class Navigation extends React.Component<NavigationPropsInterface, NavigationSta
         nextProps: NavigationPropsInterface,
         prevState: NavigationStateInterface
     ): NavigationStateInterface {
-        console.log('Homepage module', nextProps.user);
         return {
             user: nextProps.user,
         }
@@ -25,14 +24,18 @@ class Navigation extends React.Component<NavigationPropsInterface, NavigationSta
     render(): ReactNode {
         const name: undefined|string = this.state?.user?.firstName;
         return (
-            <Navbar variant="dark">
-                <Navbar.Brand href="#home">Home</Navbar.Brand>
+            <Navbar bg="dark" variant="dark" className="d-flex" sticky="top">
+                <Navbar.Brand className="mr-auto" href="#home">Home</Navbar.Brand>
+                <Nav>
+                    <NavDropdown
+                        disabled={!name}
+                        title={`Welcome ${name}`}
+                        id="basic-nav-dropdown"
+                    >
+                        <NavDropdown.Item href="/settings">Settings</NavDropdown.Item>
+                    </NavDropdown>
+                </Nav>
                 <Navbar.Toggle />
-                <Navbar.Collapse className="justify-content-end">
-                    <Navbar.Text>
-                        {name ? `Welcome ${name}` : `Please log in to view the system.`}
-                    </Navbar.Text>
-                </Navbar.Collapse>
             </Navbar>
         )
     }

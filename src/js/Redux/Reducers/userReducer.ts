@@ -1,5 +1,5 @@
 import { User, UserState } from '../../Interfaces/Redux';
-import {CREATE_USER, GET_USER} from '../Actions/Types/UserActionTypes';
+import {USER_FAILURE, USER_SUCCESS} from '../Actions/Types/UserActionTypes';
 
 const initialState: User = {
   id: undefined,
@@ -10,7 +10,7 @@ const initialState: User = {
 
 export default (state: User = initialState, action: UserState): User => {
   switch (action.type) {
-    case CREATE_USER: {
+    case USER_SUCCESS: {
       const { id, firstName, lastName, emailAddress } = action.data;
       return {
         id,
@@ -19,13 +19,10 @@ export default (state: User = initialState, action: UserState): User => {
         emailAddress,
       };
     }
-    case GET_USER: {
+    case USER_FAILURE: {
       const { id, firstName, lastName, emailAddress } = action.data;
       return {
-        id,
-        firstName,
-        lastName,
-        emailAddress,
+        ...state,
       };
     }
     default:

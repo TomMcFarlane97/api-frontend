@@ -3,6 +3,7 @@ import { connect, RootStateOrAny } from 'react-redux';
 import {createUser, getUser} from '../../../Redux/Actions/UserActions';
 import { HomepageStateInterface, HomepagePropsInterface } from '.';
 import {User} from "../../../Interfaces/Redux";
+import UserFormAction from "../../UserForm/UserFormAction";
 
 class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInterface> {
     constructor(props: HomepagePropsInterface) {
@@ -41,6 +42,8 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
                     >
                         Create a new user
                     </button>
+
+                    <UserFormAction />
                 </header>
             </div>
         );
