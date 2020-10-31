@@ -26,7 +26,7 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
         }
 
         return {
-            user: nextProps.userState
+            user: nextProps.userState.user
         }
     }
 
