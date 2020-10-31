@@ -4,7 +4,7 @@ import UserForm from "./UserForm";
 import {User} from "../../Interfaces/Redux";
 import {connect, RootStateOrAny} from "react-redux";
 import {createUser, updateUser} from "../../Redux/Actions/UserActions";
-import {USER_SUCCESS} from "../../Redux/Actions/Types/UserActionTypes";
+import {USER_SUCCESS} from "../../Constants/ActionTypes/UserActionTypes";
 
 class UserFormAction extends React.Component<UserFormActionPropsInterface, UserFormActionStateInterface> {
     constructor(props: UserFormActionPropsInterface) {

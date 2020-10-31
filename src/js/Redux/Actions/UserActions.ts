@@ -1,5 +1,5 @@
 import { User, UserState } from '../../Interfaces/Redux';
-import {USER_SUCCESS} from './Types/UserActionTypes';
+import {USER_SUCCESS} from '../../Constants/ActionTypes/UserActionTypes';
 import { UserService } from "../../Services/UserService";
 import {Dispatch} from "react";
 import {UserServiceInterface} from "../../Interfaces/Services";

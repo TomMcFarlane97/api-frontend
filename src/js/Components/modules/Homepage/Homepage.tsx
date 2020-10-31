@@ -3,8 +3,7 @@ import { connect, RootStateOrAny } from 'react-redux';
 import {createUser, getUser} from '../../../Redux/Actions/UserActions';
 import { HomepageStateInterface, HomepagePropsInterface } from '.';
 import {User} from "../../../Interfaces/Redux";
-import UserFormAction from "../../UserForm/UserFormAction";
-import {USER_SUCCESS} from "../../../Redux/Actions/Types/UserActionTypes";
+import {USER_SUCCESS} from "../../../Constants/ActionTypes/UserActionTypes";
 
 class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInterface> {
     constructor(props: HomepagePropsInterface) {
@@ -33,27 +32,9 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
     render(): ReactNode {
         const { user } = this.state;
         return (
-            <div className="App">
-                <header className="App-header">
-                    <p>
-                        Hello {user?.firstName} {user?.lastName}. This is your Email Address {user?.emailAddress}
-                    </p>
-                    <button
-                        className="App-link"
-                        onClick={() => this.props.createUserAction(
-                            {
-                                firstName: 'Updated',
-                                lastName: 'User',
-                                emailAddress: 'updated.user@gmail.com',
-                            } as User
-                        )}
-                    >
-                        Create a new user
-                    </button>
-
-                    <UserFormAction />
-                </header>
-            </div>
+            <p>
+                Hello {user?.firstName} {user?.lastName}. This is your Email Address {user?.emailAddress}
+            </p>
         );
     }
 }

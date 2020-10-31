@@ -1,9 +1,9 @@
 import { LoadingState } from '../../Interfaces/Redux';
-import {GLOBAL_LOADING} from "../Actions/Types/LoadingActionTypes";
+import {GLOBAL_LOADING} from "../../Constants/ActionTypes/LoadingActionTypes";
 
 const initialState: LoadingState = {
     type: GLOBAL_LOADING,
-    loading: true,
+    loading: false,
 };
 
 export default (state: LoadingState = initialState, action: LoadingState): LoadingState => {

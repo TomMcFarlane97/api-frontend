@@ -1,5 +1,5 @@
 import { UserState } from '../../Interfaces/Redux';
-import {USER_FAILURE, USER_SUCCESS, USER_DEFAULT} from '../Actions/Types/UserActionTypes';
+import {USER_FAILURE, USER_SUCCESS, USER_DEFAULT} from '../../Constants/ActionTypes/UserActionTypes';
 
 const initialState: UserState = {
   type: USER_DEFAULT,

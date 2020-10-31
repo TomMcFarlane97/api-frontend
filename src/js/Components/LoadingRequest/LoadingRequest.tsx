@@ -6,7 +6,7 @@ import {LoadingRequestPropsInterface} from "./LoadingRequestPropsInterface";
 class LoadingRequest extends React.Component<LoadingRequestPropsInterface, LoadingRequestStateInterface> {
     constructor(props: LoadingRequestPropsInterface) {
         super(props);
-        this.state = { isLoading: true };
+        this.state = { isLoading: false };
     }
 
     static getDerivedStateFromProps(

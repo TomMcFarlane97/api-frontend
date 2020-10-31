@@ -1,4 +1,4 @@
-import {GLOBAL_LOADING} from "../../Redux/Actions/Types/LoadingActionTypes";
+import {GLOBAL_LOADING} from "../../Constants/ActionTypes/LoadingActionTypes";
 
 export interface LoadingState {
     type: typeof GLOBAL_LOADING,
