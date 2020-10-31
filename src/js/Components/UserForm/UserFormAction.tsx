@@ -17,9 +17,9 @@ class UserFormAction extends React.Component<UserFormActionPropsInterface, UserF
     static getDerivedStateFromProps(
         nextProps: UserFormActionPropsInterface,
         prevState: UserFormActionStateInterface
-    ): UserFormActionStateInterface {
+    ): null|UserFormActionStateInterface {
         if (nextProps.userState.type !== USER_SUCCESS) {
-            return { ...prevState };
+            return null;
         }
         return {
             ...prevState,
@@ -31,11 +31,12 @@ class UserFormAction extends React.Component<UserFormActionPropsInterface, UserF
         if (!user) {
             return;
         }
+        const { updateUserAction, createUserAction } = this.props;
         if (user?.id) {
-            this.props.updateUserAction(user);
+            updateUserAction(user);
             return;
         }
-        this.props.createUserAction(user);
+        createUserAction(user);
     }
 
     render(): ReactNode {

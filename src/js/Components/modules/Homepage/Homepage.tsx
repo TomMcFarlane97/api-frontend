@@ -20,9 +20,9 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
     static getDerivedStateFromProps(
         nextProps: HomepagePropsInterface,
         prevState: HomepageStateInterface
-    ): HomepageStateInterface {
+    ): null|HomepageStateInterface {
         if (nextProps.userState.type !== USER_SUCCESS) {
-            return { ...prevState };
+            return null;
         }
 
         return {

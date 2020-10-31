@@ -1,4 +1,4 @@
-import { User, UserState } from '../../Interfaces/Redux';
+import { UserState } from '../../Interfaces/Redux';
 import {USER_FAILURE, USER_SUCCESS, USER_DEFAULT} from '../Actions/Types/UserActionTypes';
 
 const initialState: UserState = {
@@ -14,10 +14,10 @@ const initialState: UserState = {
 export default (state: UserState = initialState, action: UserState): UserState => {
   switch (action.type) {
     case USER_SUCCESS: {
-      const { id, firstName, lastName, emailAddress } = action.user;
+      const { user } = action;
       return {
         type: USER_SUCCESS,
-        user: action.user,
+        user,
       };
     }
     case USER_FAILURE: {

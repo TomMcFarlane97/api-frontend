@@ -1,26 +1,31 @@
-import React, {ChangeEvent, FormEvent, ReactNode} from "react";
+import React, {ChangeEvent, Dispatch, FormEvent, ReactNode} from "react";
 import {Form, Button, Row, Col} from "react-bootstrap";
 import {UserFormPropsInterface, UserFormStateInterface} from "./index";
 import {UserKeyType} from "../../Interfaces/EntityKeyNames";
 import {User} from "../../Interfaces/Redux";
+import {connect, RootStateOrAny} from "react-redux";
+import {requestLoading} from "../../Redux/Actions/LoadingAction";
 
-export default class UserForm extends React.Component<UserFormPropsInterface, UserFormStateInterface> {
+class UserForm extends React.Component<UserFormPropsInterface, UserFormStateInterface> {
     constructor(props: UserFormPropsInterface) {
         super(props);
 
-        this.state = { user: props.user }
+        this.state = { user: props.user, isRequestLoading: false }
     }
 
     static getDerivedStateFromProps(
         nextProps: UserFormPropsInterface,
         prevState: UserFormStateInterface
-    ): UserFormStateInterface {
-        if (prevState.user?.id) {
-            return { ...prevState };
+    ): null|UserFormStateInterface {
+        if (prevState.user?.id && nextProps.isRequestLoading === prevState.isRequestLoading) {
+            return null;
         }
+
+        const { user, isRequestLoading } = nextProps;
         return {
             ...prevState,
-            user: nextProps.user,
+            user,
+            isRequestLoading,
         }
     }
 
@@ -38,11 +43,12 @@ export default class UserForm extends React.Component<UserFormPropsInterface, Us
     handleSubmit(event: FormEvent): void {
         event.preventDefault();
         const { user } = this.state;
-        this.props.submitUserData(user);
+        const { submitUserData } = this.props;
+        submitUserData(user);
     }
 
     render(): ReactNode {
-        const { user } = this.state;
+        const { user, isRequestLoading } = this.state;
         return (
             <Form onSubmit={(event: FormEvent) => this.handleSubmit(event)} className="p-4">
                 <Form.Group controlId="userForm" as={Row} >
@@ -54,6 +60,7 @@ export default class UserForm extends React.Component<UserFormPropsInterface, Us
                             name="firstName"
                             defaultValue={user?.firstName}
                             onChange={(event) => this.handleChange(event)}
+                            disabled={!user || isRequestLoading}
                         />
                     </Col>
                 </Form.Group>
@@ -67,6 +74,7 @@ export default class UserForm extends React.Component<UserFormPropsInterface, Us
                             name="lastName"
                             defaultValue={user?.lastName}
                             onChange={(event) => this.handleChange(event)}
+                            disabled={!user || isRequestLoading}
                         />
                     </Col>
                 </Form.Group>
@@ -80,6 +88,7 @@ export default class UserForm extends React.Component<UserFormPropsInterface, Us
                             name="emailAddress"
                             defaultValue={user?.emailAddress}
                             onChange={(event) => this.handleChange(event)}
+                            disabled={!user || isRequestLoading}
                         />
                         <Form.Text className="text-muted">
                             We'll never share your email with anyone else.
@@ -87,10 +96,22 @@ export default class UserForm extends React.Component<UserFormPropsInterface, Us
                     </Col>
                 </Form.Group>
 
-                <Button variant="primary" type="submit" disabled={!user}>
+                <Button variant="primary" type="submit" disabled={!user || isRequestLoading}>
                     Submit
                 </Button>
             </Form>
         );
     }
 }
+
+const mapStateToProps = ((state: RootStateOrAny) => ({
+    isRequestLoading: state.loadingState.loading
+}))
+
+function mapDispatchToProps(dispatch: Dispatch<any>) {
+    return {
+        setRequestLoadingState: (isLoading: boolean) => dispatch(requestLoading(isLoading)),
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserForm);

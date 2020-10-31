@@ -6,11 +6,13 @@ import { store } from './store';
 import { Provider } from 'react-redux';
 import Header from "./Components/modules/Header/Header";
 import { Container } from 'react-bootstrap';
+import LoadingRequest from "./Components/LoadingRequest/LoadingRequest";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <Container >
+        <LoadingRequest isLoading={true}/>
         <Header />
         <Homepage />
       </Container>
