@@ -1,4 +1,4 @@
-import {Authentication, AuthenticationState, User} from '../../Interfaces/Redux';
+import {Authentication, AuthenticationState} from '../../Interfaces/Redux';
 import {Dispatch} from "react";
 import {AuthenticationServiceInterface} from "../../Interfaces/Services";
 import {requestLoadingAction} from "./LoadingAction";
@@ -7,6 +7,32 @@ import {CLEAR_TOKENS, SET_TOKENS} from "../../Constants/ActionTypes/TokenActionT
 import {store} from "../../store";
 
 const authenticationService: AuthenticationServiceInterface = new AuthenticationService();
+
+export function getAuthenticationFromStorage(): (dispatch: Dispatch<any>) => void {
+    return function (dispatch: Dispatch<any>): void {
+        dispatch(requestLoadingAction(true));
+        const bearer: string | null = localStorage.getItem('bearer');
+        const refresh: string | null = localStorage.getItem('refresh');
+        if (bearer && refresh) {
+            dispatch({
+                type: SET_TOKENS,
+                data: {
+                    bearer,
+                    refresh,
+                    loggedIn: true,
+                } as Authentication,
+            } as AuthenticationState);
+            dispatch(requestLoadingAction(false));
+            return;
+        }
+
+        dispatch({
+            type: CLEAR_TOKENS,
+            data: authenticationService.logout(),
+        } as AuthenticationState);
+        dispatch(requestLoadingAction(false));
+    }
+}
 
 export function loginAction(emailAddress: string): (dispatch: Dispatch<any>) => void {
     return function (dispatch: Dispatch<any>): void {
@@ -31,7 +57,7 @@ export function refreshTokensAction(): (dispatch: Dispatch<any>) => void {
     return function (dispatch: Dispatch<any>): void {
         alert('refreshing');
         dispatch(requestLoadingAction(true));
-        authenticationService.refresh(store.getState().authenticationReducer.data.refresh)
+        authenticationService.refresh(store.getState().authenticationState.data.refresh)
             .then((response: Authentication) => {
                 alert('success');
                 dispatch({
@@ -50,7 +76,7 @@ export function refreshTokensAction(): (dispatch: Dispatch<any>) => void {
     }
 }
 
-export function logoutAction(user: User): (dispatch: Dispatch<any>) => void {
+export function logoutAction(): (dispatch: Dispatch<any>) => void {
     return function (dispatch: Dispatch<any>): void {
         dispatch(requestLoadingAction(true));
         dispatch({
