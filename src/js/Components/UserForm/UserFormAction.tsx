@@ -3,7 +3,7 @@ import {UserFormActionPropsInterface, UserFormActionStateInterface} from "./inde
 import UserForm from "./UserForm";
 import {User} from "../../Interfaces/Redux";
 import {connect, RootStateOrAny} from "react-redux";
-import {createUser, updateUser} from "../../Redux/Actions/UserActions";
+import {createUserAction, updateUserAction} from "../../Redux/Actions/UserActions";
 import {USER_SUCCESS} from "../../Constants/ActionTypes/UserActionTypes";
 
 class UserFormAction extends React.Component<UserFormActionPropsInterface, UserFormActionStateInterface> {
@@ -55,8 +55,8 @@ const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
 
 function mapDispatchToProps(dispatch: Dispatch<any>) {
     return  {
-        createUserAction: (user: User) => dispatch(createUser(user)),
-        updateUserAction: (user: User) => dispatch(updateUser(user)),
+        createUserAction: (user: User) => dispatch(createUserAction(user)),
+        updateUserAction: (user: User) => dispatch(updateUserAction(user)),
     }
 }
 

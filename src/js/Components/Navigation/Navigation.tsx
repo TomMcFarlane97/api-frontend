@@ -3,9 +3,7 @@ import {Nav, Navbar, NavDropdown} from "react-bootstrap";
 import {NavigationPropsInterface, NavigationStateInterface} from ".";
 import {connect, RootStateOrAny} from "react-redux";
 import {USER_SUCCESS} from "../../Constants/ActionTypes/UserActionTypes";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import Homepage from "../modules/Homepage/Homepage";
-import SettingsPage from "../modules/SettingsPage/SettingsPage";
+import {Link} from "react-router-dom";
 
 
 class Navigation extends React.Component<NavigationPropsInterface, NavigationStateInterface> {

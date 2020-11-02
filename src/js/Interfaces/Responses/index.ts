@@ -1,5 +1,7 @@
+import { AuthenticationResponse } from './AuthenticationResponse';
 import { UserResponse } from './UserResponse';
 
 export {
-    UserResponse
+    AuthenticationResponse,
+    UserResponse,
 }

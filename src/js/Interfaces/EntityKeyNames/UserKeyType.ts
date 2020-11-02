@@ -1,6 +1,4 @@
-import {UserKeyTypeValue} from "./UserKeyTypeValue";
-
-export interface UserKeyType extends UserKeyTypeValue{
+export interface UserKeyType {
     name: 'firstName' | 'lastName' | 'emailAddress';
     [value: string]: string;
 }

@@ -1,6 +1,6 @@
 import React, {Dispatch, ReactNode} from 'react';
 import { connect, RootStateOrAny } from 'react-redux';
-import {createUser, getUser} from '../../../Redux/Actions/UserActions';
+import {createUserAction, getUserAction} from '../../../Redux/Actions/UserActions';
 import { HomepageStateInterface, HomepagePropsInterface } from '.';
 import {User} from "../../../Interfaces/Redux";
 import {USER_SUCCESS} from "../../../Constants/ActionTypes/UserActionTypes";
@@ -47,8 +47,8 @@ const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
 
 function mapDispatchToProps(dispatch: Dispatch<any>) {
     return  {
-        getUserAction: (userId: number) => dispatch(getUser(userId)),
-        createUserAction: (user: User) => dispatch(createUser(user)),
+        getUserAction: (userId: number) => dispatch(getUserAction(userId)),
+        createUserAction: (user: User) => dispatch(createUserAction(user)),
     }
 }
 

@@ -4,7 +4,7 @@ import {UserFormPropsInterface, UserFormStateInterface} from "./index";
 import {UserKeyType} from "../../Interfaces/EntityKeyNames";
 import {User} from "../../Interfaces/Redux";
 import {connect, RootStateOrAny} from "react-redux";
-import {requestLoading} from "../../Redux/Actions/LoadingAction";
+import {requestLoadingAction} from "../../Redux/Actions/LoadingAction";
 
 class UserForm extends React.Component<UserFormPropsInterface, UserFormStateInterface> {
     constructor(props: UserFormPropsInterface) {
@@ -110,7 +110,7 @@ const mapStateToProps = ((state: RootStateOrAny) => ({
 
 function mapDispatchToProps(dispatch: Dispatch<any>) {
     return {
-        setRequestLoadingState: (isLoading: boolean) => dispatch(requestLoading(isLoading)),
+        setRequestLoadingState: (isLoading: boolean) => dispatch(requestLoadingAction(isLoading)),
     };
 }
 
