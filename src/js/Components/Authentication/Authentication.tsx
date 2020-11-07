@@ -10,7 +10,8 @@ class Authentication extends React.Component<AuthenticationPropsInterface, Authe
     constructor(props: AuthenticationPropsInterface) {
         super(props);
         this.state = {
-            authenticationState: props.authenticationState,
+            type: props.type,
+            data: props.data,
             location: props.location,
             history: props.history,
             match: props.match,
@@ -24,11 +25,10 @@ class Authentication extends React.Component<AuthenticationPropsInterface, Authe
     ): null|AuthenticationStateInterface {
         console.log(nextProps);
         if (
-            nextProps.authenticationState.type === prevState.authenticationState.type
-            && nextProps.authenticationState.data?.loggedIn === prevState.authenticationState.data?.loggedIn
+            nextProps.type === prevState.type
+            && nextProps.data?.loggedIn === prevState.data?.loggedIn
             && nextProps.location?.pathname === prevState.location?.pathname
         ) {
-            console.log(prevState);
             return null;
         }
 
@@ -48,10 +48,9 @@ class Authentication extends React.Component<AuthenticationPropsInterface, Authe
     }
 
     render(): ReactNode {
-        const { authenticationState, location } = this.state;
-        console.log('pathname', location.pathname);
-        if (authenticationState.type === CLEAR_TOKENS
-            && !authenticationState.data.loggedIn
+        const { type, data, location } = this.state;
+        if (type === CLEAR_TOKENS
+            && !data.loggedIn
             && location.pathname !== '/login'
         ) {
             return (<Redirect to="/login" />)
@@ -63,7 +62,8 @@ class Authentication extends React.Component<AuthenticationPropsInterface, Authe
 
 const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
     return {
-        authenticationState: state.authenticationState,
+        type: state.authenticationState.type,
+        data: state.authenticationState.data,
     }
 };
 
