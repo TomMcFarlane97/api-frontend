@@ -13,6 +13,10 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
 
     componentDidMount(): void {
         const { getUserAction } = this.props;
+        const { user } = this.state;
+        if (user.id) {
+            return;
+        }
         getUserAction();
     }
 
@@ -31,6 +35,9 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
 
     render(): ReactNode {
         const { user } = this.state;
+        if (!user.id) {
+            return (<p>There is no user</p>);
+        }
         return (
             <p>
                 Hello {user?.firstName} {user?.lastName}. This is your Email Address {user?.emailAddress}

@@ -5,9 +5,7 @@ import {LoginPagePropsInterface} from "./LoginPagePropsInterface";
 import {LoginPageStateInterface} from "./LoginPageStateInterface";
 import {connect, RootStateOrAny} from "react-redux";
 import {loginAction} from "../../../Redux/Actions/AuthenticationActions";
-import {log} from "util";
 import {Redirect} from "react-router";
-import Homepage from "../Homepage/Homepage";
 
 class LoginPage extends React.Component<LoginPagePropsInterface, LoginPageStateInterface> {
     constructor(props: LoginPagePropsInterface) {

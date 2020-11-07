@@ -28,7 +28,6 @@ export abstract class AbstractService
         });
 
         axios.interceptors.response.use((response: AxiosResponse) => {
-            alert('successful call');
             return response;
         }, (error: any) => {
                 if (error.response.status === 401) {

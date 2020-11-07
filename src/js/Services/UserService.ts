@@ -10,11 +10,6 @@ export class UserService extends AbstractService implements UserServiceInterface
     public async fetchUser(): Promise<User> {
         return this.http.get(`/user`)
             .then((response: AxiosResponse<UserResponse>) => {
-                console.log('here', response);
-                // if (response.response.status !== 200 || response.response.status !== 201) {
-                //     refreshTokensAction();
-                //     console.log('refresh tokens');
-                // }
                 return {
                     id: response.data.id,
                     firstName: response.data.first_name,

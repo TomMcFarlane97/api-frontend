@@ -2,6 +2,6 @@ import { User, UserState } from '../../../Interfaces/Redux';
 
 export interface HomepagePropsInterface {
     userState: UserState,
-    getUserAction(userId: number): void;
+    getUserAction(): void;
     createUserAction(user: User): void;
 }
