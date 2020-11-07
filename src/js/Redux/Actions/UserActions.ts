@@ -8,10 +8,10 @@ import {refreshTokensAction} from "./AuthenticationActions";
 
 const userService: UserServiceInterface = new UserService();
 
-export function getUserAction(userId: number): (dispatch: Dispatch<any>) => void {
+export function getUserAction(): (dispatch: Dispatch<any>) => void {
     return function (dispatch: Dispatch<any>): void {
         dispatch(requestLoadingAction(true));
-        userService.fetchUser(userId)
+        userService.fetchUser()
             .then((response: User) => {
                 dispatch({
                     type: USER_SUCCESS,

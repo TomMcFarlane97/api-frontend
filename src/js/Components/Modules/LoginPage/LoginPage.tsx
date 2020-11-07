@@ -3,15 +3,32 @@ import {Col, Row, Button} from "react-bootstrap";
 import LoginForm from "../../LoginForm/LoginForm";
 import {LoginPagePropsInterface} from "./LoginPagePropsInterface";
 import {LoginPageStateInterface} from "./LoginPageStateInterface";
-import {connect} from "react-redux";
+import {connect, RootStateOrAny} from "react-redux";
 import {loginAction} from "../../../Redux/Actions/AuthenticationActions";
+import {log} from "util";
+import {Redirect} from "react-router";
+import Homepage from "../Homepage/Homepage";
 
 class LoginPage extends React.Component<LoginPagePropsInterface, LoginPageStateInterface> {
     constructor(props: LoginPagePropsInterface) {
         super(props);
         this.handleLoginClick = this.handleLoginClick.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
-        this.state = { showLogin: false, };
+        this.state = { showLogin: false, loggedIn: false };
+    }
+
+    static getDerivedStateFromProps(
+        nextProps: LoginPagePropsInterface,
+        prevState: LoginPageStateInterface
+    ): null|LoginPageStateInterface {
+        if (nextProps.loggedIn === prevState.loggedIn) {
+            return null;
+        }
+
+        return {
+            ...prevState,
+            loggedIn: nextProps.loggedIn,
+        }
     }
 
     handleLoginClick(event?: MouseEvent): void {
@@ -30,7 +47,10 @@ class LoginPage extends React.Component<LoginPagePropsInterface, LoginPageStateI
     }
 
     render() {
-        const { showLogin } = this.state;
+        const { showLogin, loggedIn } = this.state;
+        if (loggedIn) {
+            return (<Redirect to="/" />);
+        }
         return <>
             <Row>
                 <Col>
@@ -57,11 +77,17 @@ class LoginPage extends React.Component<LoginPagePropsInterface, LoginPageStateI
     }
 }
 
+const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
+    return {
+        loggedIn: state.authenticationState.data.loggedIn,
+    }
+};
+
 function mapDispatchToProps(dispatch: Dispatch<any>) {
     return  {
         loginUserAction: (emailAddress: string) => dispatch(loginAction(emailAddress)),
     }
 }
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 

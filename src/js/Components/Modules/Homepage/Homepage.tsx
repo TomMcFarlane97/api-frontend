@@ -13,7 +13,7 @@ class Homepage extends React.Component<HomepagePropsInterface, HomepageStateInte
 
     componentDidMount(): void {
         const { getUserAction } = this.props;
-        getUserAction(1);
+        getUserAction();
     }
 
     static getDerivedStateFromProps(
@@ -47,7 +47,7 @@ const mapStateToProps = (state: RootStateOrAny, ownProps: any) => {
 
 function mapDispatchToProps(dispatch: Dispatch<any>) {
     return  {
-        getUserAction: (userId: number) => dispatch(getUserAction(userId)),
+        getUserAction: () => dispatch(getUserAction()),
         createUserAction: (user: User) => dispatch(createUserAction(user)),
     }
 }

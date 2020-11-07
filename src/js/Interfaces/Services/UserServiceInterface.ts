@@ -1,7 +1,7 @@
 import {User} from '../Redux';
 
 export interface UserServiceInterface {
-    fetchUser(userId: number): Promise<User>
+    fetchUser(): Promise<User>
     createUser(user: User): Promise<User>
     updateUser(user: User): Promise<User>
 }
