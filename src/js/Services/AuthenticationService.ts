@@ -1,6 +1,5 @@
 import axios, {AxiosRequestConfig, AxiosResponse, AxiosStatic} from 'axios';
 import {Authentication} from '../Interfaces/Redux';
-import {AbstractService} from './AbstractService';
 import {AuthenticationResponse} from '../Interfaces/Responses';
 import {AuthenticationServiceInterface} from '../Interfaces/Services';
 import {CONTENT_TYPE_JSON} from "../Constants/AxiosConstants";
@@ -9,12 +8,14 @@ export class AuthenticationService implements AuthenticationServiceInterface
 {
     public async login(emailAddress: string): Promise<Authentication> {
         return await this.getSimpleHttp().post(
-            `/authentication/`,
+            `/authenticate`,
             {
                 email_address: emailAddress,
             })
             .then((response: AxiosResponse<AuthenticationResponse>) => {
                 const { bearer, refresh } = response.data;
+                localStorage.setItem('bearer', bearer);
+                localStorage.setItem('refresh', refresh);
                 return {
                     bearer,
                     refresh,
@@ -33,7 +34,7 @@ export class AuthenticationService implements AuthenticationServiceInterface
     }
 
     public async refresh(refreshToken: string): Promise<Authentication> {
-        return await this.getSimpleHttp(refreshToken).post(`/authentication`)
+        return await this.getSimpleHttp(refreshToken).post(`/authenticate`)
             .then((response: AxiosResponse<AuthenticationResponse>) => {
                 const { bearer, refresh } = response.data;
                 return {

@@ -1,11 +1,16 @@
-import React from "react";
+import React, {Dispatch} from "react";
 import {Col, Row, Button} from "react-bootstrap";
 import LoginForm from "../../LoginForm/LoginForm";
+import {LoginPagePropsInterface} from "./LoginPagePropsInterface";
+import {LoginPageStateInterface} from "./LoginPageStateInterface";
+import {connect} from "react-redux";
+import {loginAction} from "../../../Redux/Actions/AuthenticationActions";
 
-export class LoginPage extends React.Component<any, any> {
-    constructor(props: any) {
+class LoginPage extends React.Component<LoginPagePropsInterface, LoginPageStateInterface> {
+    constructor(props: LoginPagePropsInterface) {
         super(props);
         this.handleLoginClick = this.handleLoginClick.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
         this.state = { showLogin: false, };
     }
 
@@ -17,6 +22,11 @@ export class LoginPage extends React.Component<any, any> {
         this.setState({
             showLogin: !showLogin,
         })
+    }
+
+    handleLogin(emailAddress: string): void {
+        const { loginUserAction } = this.props;
+        loginUserAction(emailAddress);
     }
 
     render() {
@@ -38,7 +48,20 @@ export class LoginPage extends React.Component<any, any> {
                 </Col>
             </Row>
 
-            <LoginForm showLogin={showLogin} handleLoginClick={this.handleLoginClick} />
+            <LoginForm
+                showLogin={showLogin}
+                handleLoginClick={this.handleLoginClick}
+                loginUser={this.handleLogin}
+            />
         </>
     }
 }
+
+function mapDispatchToProps(dispatch: Dispatch<any>) {
+    return  {
+        loginUserAction: (emailAddress: string) => dispatch(loginAction(emailAddress)),
+    }
+}
+
+export default connect(null, mapDispatchToProps)(LoginPage);
+
